@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public GameObject interactIcon;
     public float moveSpeed = 5f;
 
     public Rigidbody2D rb;
@@ -43,15 +44,16 @@ public class PlayerMovement : MonoBehaviour
     private void CheckInteraction()
     {
         RaycastHit2D[] hits = Physics2D.BoxCastAll(transform.position, boxSize, 0, Vector2.zero);
-        if (hits.length > 0)
+        if (hits.Length > 0)
         {
              foreach(RaycastHit2D rc in hits)
              {
-                  if (rc.transform.GetComponent<Interactable>())
+                  if (rc.transform.GetComponent<Interactables>())
                   {
-                      rc.transform.GetComponent<Interactable>().Interaction();
+                      rc.transform.GetComponent<Interactables>().Interaction();
                       return;
                   }
+             }
         }
     }
 }

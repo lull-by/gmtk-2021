@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Openable : Interactables
 {
+    public GameObject interactIcon;
     public Sprite opened;
     public Sprite closed;
 
@@ -15,7 +16,7 @@ public class Openable : Interactables
         if(isOpen) 
             rend.sprite = closed;
         else
-            rend.sprite = open;
+            rend.sprite = opened;
         isOpen = !isOpen;
     }
 
