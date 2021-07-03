@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate() {
         // Movement
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        rb.velocity = movement * moveSpeed;
     }
 
     public void OpenInteractableIcon()
