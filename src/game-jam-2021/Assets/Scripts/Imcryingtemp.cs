@@ -15,7 +15,7 @@ public class Imcryingtemp : MonoBehaviour
 
     private void Start()
     {
-        targetAngletemp = new Vector3(10, 90, 0);
+
         parentObject = GameObject.Find("Guard");// The name of the parent object
         childObject = parentObject.transform.GetChild(0).gameObject; // the parent index (starting from 0)
         Vector3[] waypoints = new Vector3[pathHolder.childCount];
@@ -35,6 +35,9 @@ public class Imcryingtemp : MonoBehaviour
         int targetWaypointIndex = 1;
         Vector3 targetWayPoint = waypoints[targetWaypointIndex];
         childObject.transform.LookAt(targetWayPoint);
+
+        targetAngletemp = targetWayPoint;
+        targetAngletemp.y = 90;
 
         while (true)
         {
@@ -62,27 +65,25 @@ public class Imcryingtemp : MonoBehaviour
         Quaternion b = Quaternion.Euler(childObject.transform.eulerAngles);
 
         float angleDiff = Quaternion.Angle(a, b);
+        float angleDiff2 = Mathf.Abs(Mathf.Abs( childObject.transform.eulerAngles.x) - Mathf.Abs(targetAngle));
+        angleDiff2 = 90;
 
-        while (Mathf.Abs(angleDiff) > 0.05)
+
+        while (Mathf.Abs(angleDiff) > 0.3)
         {
             float angle = Mathf.MoveTowardsAngle(childObject.transform.eulerAngles.x, targetAngle, turnSpeed * Time.deltaTime);
 
             print("current x coor: " + childObject.transform.eulerAngles.x + ". targetAngle: " + targetAngle);
             print("Angle: " + angle);
 
-            targetAngletemp = new Vector3(angle, 90, 0);
+
+            
             print(targetAngletemp);
 
-            Quaternion rotation;
-            if (targetAngletemp.x > 89 && targetAngletemp.x < 91)
-            {
-                rotation = Quaternion.Euler(new Vector3(95, 90, 0));
-            } else
-            {
-                rotation = Quaternion.Euler(targetAngletemp);
-            }
+            childObject.transform.Rotate(transform.right, -(angleDiff2 * Time.deltaTime)/2);
+            
 
-            childObject.transform.eulerAngles = targetAngletemp;
+            //  childObject.transform.eulerAngles = targetAngletemp;
 
             print("After quaternion: " + childObject.transform.localEulerAngles.x);
 
